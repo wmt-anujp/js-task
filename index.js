@@ -400,63 +400,106 @@ const data = [
 
 const agess = data.filter((anuj) => anuj.age > 25);
 // console.log(data[0].friends);
-agess.forEach((e) => {
-  document.getElementById("age").innerHTML =
-    JSON.stringify(agess, null, 2) + "length of this array is: " + agess.length;
-});
+// const finalage = agess.map((some) => {
+document.getElementById("age").innerHTML = agess.map(
+  (el) => "<br>" + "Name: " + el.name + "<br>" + "Age: " + el.age
+);
+// });
 
-const gender = data.filter((anuj) => anuj.gender == "male");
-gender.forEach((element) => {
-  document.getElementById("mgender").innerHTML =
-    JSON.stringify(gender, null, 2) +
+const gender = data.filter((anuj) => anuj.gender === "male");
+document.getElementById("mgender").innerHTML = gender.map(
+  (ee) =>
+    "<br>" +
+    "Name: " +
+    ee.name +
+    "<br>" +
+    "Gender: " +
+    ee.gender +
+    "<br>" +
     "length of this array is: " +
-    gender.length;
-});
+    gender.length
+);
 
-const fgender = data.filter((anuj) => anuj.gender == "female");
-gender.forEach((element) => {
-  document.getElementById("fgender").innerHTML =
-    JSON.stringify(fgender, null, 2) +
+const fgender = data.filter((anuj) => anuj.gender === "female");
+document.getElementById("fgender").innerHTML = fgender.map(
+  (ele) =>
+    "<br>" +
+    "Name: " +
+    ele.name +
+    "<br>" +
+    "Gender:" +
+    ele.gender +
+    "<br>" +
     "length of this array is: " +
-    fgender.length;
-});
+    fgender.length
+);
 
 // const dolorvar = data.filter((anuj) => anuj.tags == "dolor");
-// console.log(data.);
-const mydata = data.map((anuj) => {
-  const finalmap = anuj.tags.filter((panchal) => panchal == "dolor");
-  //   console.log(finalmap.length);
-  //   if (finalmap.length > 0) {
-  return finalmap;
-  //   }
-  //   return finalmap.filter((e) => console.log(e));
-});
-mydata.forEach((element) => {
-  document.getElementById("Dolor").innerHTML = JSON.stringify(mydata, null, 2);
-});
+// const mydata = data.filter((anuj) => {
+//   if (anuj.tags.find((panchal) => panchal == "dolor")) {
+//     console.log(anuj);
+//     document.getElementsByClassName("Dolor").innerHTML =
+//       "<br>" + "Name: " + anuj.name;
+//     for (const key in anuj) {
+//       // if (anuj[key] == "name") {
+//       //   console.log("hello");
+//       // }
+//     }
+//   }
+// });
+// console.log(data);
+
+document.getElementById("Dolor").innerHTML = data
+  .filter((anuj) => anuj.tags.some((x) => x === "dolor"))
+  .map((e) => e.name);
+
+// console.log(mydata);
+// mydata.forEach((element) => {
+//   document.getElementById("Dolor").mydata;
+// });
 
 const salary = data.reduce((total, currentValue) => {
   const temp = currentValue.balance;
   mystring = temp.split("$").join("");
   finalstring = mystring.split(",").join("");
-  //   console.log(typeof parseInt(finalstring));
   return total + Number(finalstring);
 }, 0);
-// console.log(salary);
-document.getElementById("balance").innerHTML = JSON.stringify(salary, null, 2);
+document.getElementById("balance").innerHTML = salary;
 
 // const friendaccess = data.map((elem) => {
-//   const friend = elem._id.filter((num) => (num = "62c29940fd76ec67ad1518ed"));
-//   return friend;
-// });
-const friendaccess = data.filter(
-  (num) => num._id == "62c29940fd76ec67ad1518ed"
+const friend = data.find((num) => num._id == "62c29940fd76ec67ad1518ed");
+document.getElementById("Friend").innerHTML = friend.friends.map(
+  (patel) => "<br>" + "Name: " + patel.name
 );
-for (const key in friendaccess) {
-  document.getElementById(Friend).innerHTML = JSON.stringify(
-    friendaccess[key].friends,
-    null,
-    2
-  );
-  //   console.log(friendaccess[key].friends);
+// return friend;
+// });
+// const friendaccess = data.filter(
+//   (num) => num._id.find() == "62c29940fd76ec67ad1518ed"
+// );
+// data._id.find("62c29940fd76ec67ad1518ed");
+// console.log(friendaccess);
+// const friendaccess = data.find("62c29940fd76ec67ad1518ed");
+// console.log(friendaccess);
+// (num) => num._id == ;
+// for (const key in friendaccess) {
+//   console.log(friendaccess[key].friends);
+// }
+let temparray = {};
+let newarray = ["a", "b", "a", "c", "d", "a", "b", "c", "d", "e"];
+newarray.forEach((eleme) => {
+  temparray[eleme] = (temparray[eleme] || 0) + 1;
+});
+let array = [];
+for (const i in temparray) {
+  if (temparray[i] === 1) {
+    var obj = {};
+    obj[i] = temparray[i];
+    array.push(obj);
+    console.log(i);
+  }
 }
+// console.log(temparray);
+
+let temp = { name: "abc" };
+temp.email = "anuj@gmail.com";
+console.log(temp);
