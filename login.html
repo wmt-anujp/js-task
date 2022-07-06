@@ -22,39 +22,99 @@
 </head>
 
 <body>
-    <form action="">
-        <div class="container mt-5">
-            <div class="input-group flex-nowrap form-group">
-                <input type="password" class="form-control" name="password" id="password" placeholder="Password"
-                    aria-label="Username" aria-describedby="addon-wrapping" onkeypress="enterPassword()" minlength="8"
-                    required>
-            </div>
-            <div>
-                <input type="checkbox" name="minLength" id="minlen"> Min Length<br>
-                <input type="checkbox" name="uppercase" id="uppercase"> UpperCase<br>
-                <input type="checkbox" name="lowercase" id="lowercase"> LowerCase<br>
-                <input type="checkbox" name="number" id="number"> Number<br>
-                <input type="checkbox" name="special" id="special"> Specialcharacter<br>
-            </div>
-            <button type="submit" class="btn btn-success">Submit</button>
+    <div class="container mt-5">
+        <div class="d-flex form-group">
+            <input style="width: 50%;" type="text" class="form-control me-4" name="password" id="password"
+                placeholder="Password" aria-label="Username" aria-describedby="addon-wrapping" minlength="8">
+            <input style="width: 20%;" type="text" name="generator" id="generator" class="form-control" disabled>
         </div>
-    </form>
+        <div class="mt-2">
+            <input type="checkbox" class="chek" name="minLength" id="minlen"> Min Length<br>
+            <input type="checkbox" class="chek" name="uppercase" id="uppercase"> UpperCase<br>
+            <input type="checkbox" class="chek" name="lowercase" id="lowercase"> LowerCase<br>
+            <input type="checkbox" class="chek" name="number" id="number"> Number<br>
+            <input type="checkbox" class="chek" name="special" id="special"> SpecialCharacter<br>
+            <p id="ptag" style="color: green;">All checkbox checked</p>
+        </div>
+        <div class="mt-2">
+            <button class="btn btn-sm btn-primary" id="generatepw">Generate
+                Password</button>
+        </div>
+    </div>
 
     <script type="text/javascript">
-        function enterPassword() {
-            $("#password").keyup(function () {
-                var upperregex = new RegExp('[A-Z]');
-                var lowerregex = new RegExp('[a-z]');
-                var numberregex = new RegExp('[0-9]');
-                var specialregex = new RegExp('[!@@#$%^&*]');
-                console.log($(this).val().match(upperregex));
-                if ($(this).val().length > 8) {
-                    $("#minlen").prop("checked", true);
-                } else {
-                    $("#minlen").prop("checked", false);
-                }
-            })
-        }
+        $("#ptag").hide();
+        $("#password").on("paste, keyup", function () {
+            var upperregex = new RegExp('[A-Z]');
+            var lowerregex = new RegExp('[a-z]');
+            var numberregex = new RegExp('[0-9]');
+            var specialregex = new RegExp('[!@@#$%^&*()/.:;><={}]');
+            var password = $(this).val();
+            // console.log(password.match(upperregex));
+            if (password.length >= 8) {
+                $("#minlen").prop("checked", true);
+            } else {
+                $("#minlen").prop("checked", false);
+            }
+            if (password.match(upperregex)) {
+                $("#uppercase").prop("checked", true);
+            } else {
+                $("#uppercase").prop("checked", false);
+            }
+            if (password.match(lowerregex)) {
+                $("#lowercase").prop("checked", true);
+            } else {
+                $("#lowercase").prop("checked", false);
+            }
+            if (password.match(numberregex)) {
+                $("#number").prop("checked", true);
+            } else {
+                $("#number").prop("checked", false);
+            }
+            if (password.match(specialregex)) {
+                $("#special").prop("checked", true);
+            } else {
+                $("#special").prop("checked", false);
+            }
+            var allCheckBox = $("input[type='checkbox'].chek");
+            if (allCheckBox.length == allCheckBox.filter(":checked").length) {
+                $("#ptag").show();
+            } else {
+                $("#ptag").hide();
+            }
+        })
+
+        $("#generatepw").click(function (passwordLength) {
+            var pass = '';
+            var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 'abcdefghijklmnopqrstuvwxyz' + '0123456789' + '!@#$%^&()_+~`|}{[]:;?><,./-=';
+            for (var i = 1; i <= 8; i++) {
+                var char = Math.floor(Math.random() * str.length + 1);
+                pass += str.charAt(char)
+            }
+            $("#generator").val(pass);
+            // var numberChars = "0123456789";
+            // var upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            // var lowerChars = "abcdefghijklmnopqrstuvwxyz";
+            // var SpecialCharacter = "!@#$%^&()_+~`|}{[]:;?><,./-='";
+            // var allChars = numberChars + upperChars + lowerChars + SpecialCharacter;
+            // var randPasswordArray = Array(passwordLength);
+            // randPasswordArray[0] = numberChars;
+            // randPasswordArray[1] = upperChars;
+            // randPasswordArray[2] = lowerChars;
+            // randPasswordArray[3] = SpecialCharacter;
+            // randPasswordArray = randPasswordArray.fill(allChars, 3);
+            // return shuffleArray(randPasswordArray.map(function (x) { return x[Math.floor(Math.random() * x.length)] })).join('');
+        })
+        // function shuffleArray(array) {
+        //     for (var i = array.length - 1; i > 0; i--) {
+        //         var j = Math.floor(Math.random() * (i + 1));
+        //         var temp = array[i];
+        //         array[i] = array[j];
+        //         array[j] = temp;
+        //     }
+        //     return array;
+        // }
+        // $("#generator").val();
     </script>
 </body>
 
